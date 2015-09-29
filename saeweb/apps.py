@@ -5,13 +5,13 @@ import sys
 
 
 class SaeWebConfig(AppConfig):
-    name = 'SaeWeb'
-    label = "SaeWeb"
-    verbose_name = "SaeWeb"
+    name = 'saeweb'
+    label = "saeweb"
+    verbose_name = "saeweb"
     
     def ready(self):
         
-        print("Iniciando deploy do SaeWeb, aguarde...")
+        print("Iniciando deploy do saeweb, aguarde...")
         self.cadastra_transacoes()
             
         

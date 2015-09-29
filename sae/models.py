@@ -17,7 +17,7 @@ TIPO_GERA_ARQUIVO_RU = ((0, "Restaurante Universitário"), (1,
 # CRUDS
 
 class ValorAlimentacao(EmsModel):
-
+    service_url = "/sae/valoralimentacao"
     id = FpcIntegerField('Código', primary_key=True, auto_increment=True, editable=False, insertable=False, size=120)
     campus = FpcIntegerField('Campus', null=False, blank=False)
     inicioVigencia = models.DateField("Início Vigência", null=True, blank=True)
