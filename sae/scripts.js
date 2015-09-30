@@ -1,4 +1,4 @@
-var valeAlimentacaoForm = {
+var valorAlimentacaoController = {
 
 	on_open_form : function(response){
 		var doc = document;
@@ -7,8 +7,21 @@ var valeAlimentacaoForm = {
 		var f_form = doc.getElementById("f_form");
 		//fpc.updateFields(f_form, update_fields);
 		//fpc.resetFields(f_form);
+		// todo...
+	},
+	
+	on_format_object : function(obj){
+		obj.pagaBeneficio = obj.pagaBeneficio ? "Sim" : "Não";  
 	},
 
+	on_format_cell_datable : function(field, type, value, row, col, html_row){
+		switch (field) {
+			case "pagaBeneficio":  return value === "true" ? "Sim" : "Não";
+			case "valorBeneficio": return value.toFixed(2);
+		}
+		return value;
+	}
+	
 };
 
 

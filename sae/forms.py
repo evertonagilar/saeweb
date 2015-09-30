@@ -11,13 +11,13 @@ from sae.models import ValorAlimentacao, Ocorrencias, ImprimeAgendamento
 class ValorAlimentacaoForm(FpcCrud):
     class Meta:
         model = ValorAlimentacao
-        campos_pesquisa = ('campus', 'inicioVigencia', 'fimVigencia','pagaBeneficio')
-        campos_grid_pesquisa = ('campus', 'inicioVigencia', 'fimVigencia','pagaBeneficio')
+        campos_pesquisa = ('campus', 'inicioVigencia', 'fimVigencia','pagaBeneficio', 'valorBeneficio')
+        campos_grid_pesquisa = ('campus', 'inicioVigencia', 'fimVigencia','pagaBeneficio', 'valorBeneficio')
         layout = ('campus', 
                   ('inicioVigencia', 'fimVigencia'),
                   'valorBeneficio', 
                   'pagaBeneficio')
-        layout_pesquisa = ('campus','inicioVigencia','fimVigencia','pagaBeneficio')
+        layout_pesquisa = ('campus','inicioVigencia','fimVigencia','pagaBeneficio', 'valorBeneficio')
         titulo = "Valor Alimentação"
 
 
