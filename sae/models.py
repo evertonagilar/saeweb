@@ -6,7 +6,7 @@ from fpc.models import FpcModel, FpcIntegerField, FpcDecimalField, EmsModel, \
     FpcTextField
 
 
-BOOLEAN = ((0, "Não"), (1, 'Sim'))
+BOOLEAN = (("false", "Não"), ("true", 'Sim'))
 
 TIPO_GERA_ARQUIVO_RU = ((0, "Restaurante Universitário"), (1,
                         "Todos os Estudos Concluídos"), (2,
@@ -16,16 +16,19 @@ TIPO_GERA_ARQUIVO_RU = ((0, "Restaurante Universitário"), (1,
 
 # CRUDS
 
+class Campus(FpcModel):
+    id = FpcIntegerField('Id', primary_key=True, auto_increment=True, editable=False, insertable=False)
+    nome = FpcTextField('Nome', max_length=70, null=False, blank=False, unique=True, size=300, caixa_alta=False)
+
+
 class ValorAlimentacao(EmsModel):
     service_url = "/sae/valoralimentacao"
     id = FpcIntegerField('Código', primary_key=True, auto_increment=True, editable=False, insertable=False, size=120)
-    campus = FpcIntegerField('Campus', null=False, blank=False)
-    inicioVigencia = models.DateField("Início Vigência", null=True, blank=True)
+    campus = models.ForeignKey('Campus', verbose_name="Campus", null=False, blank=False)
+    inicioVigencia = models.DateField("Início Vigência", null=False, blank=False)
     fimVigencia = models.DateField('Fim Vigência?', null=True, blank=True)
-    pagaBeneficio = FpcIntegerField('Paga Benefício?', size=160, null=False, blank=False, choices=BOOLEAN, default=0)
-    geraArquivoRU = FpcIntegerField('Gerar Arquivo RU', size=160, null=False, blank=False, choices=BOOLEAN, default=1)
+    pagaBeneficio = FpcIntegerField('Paga Benefício?', null=False, blank=False, radio=BOOLEAN, default="false")
     valorBeneficio = FpcDecimalField('Valor do Benefício', null=False, blank=False, default=0, max_digits=10, decimal_places=2)
-    ocorrencia = models.ForeignKey('Ocorrencias', verbose_name="Ocorrencia ativa", null=True, blank=True)
 
 class Ocorrencias(EmsModel):
     id = FpcIntegerField('Código', primary_key=True, auto_increment=True, editable=False, insertable=False, size=120)

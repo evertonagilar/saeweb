@@ -3,11 +3,10 @@
 
 from fpc.forms import FpcCrud, FpcForm
 
-from sae.models import ValorAlimentacao, Ocorrencias, ImprimeAgendamento
+from sae.models import ValorAlimentacao, Ocorrencias, ImprimeAgendamento, Campus
 
 
 # Cadastros básicos
-
 class ValorAlimentacaoForm(FpcCrud):
     class Meta:
         model = ValorAlimentacao
@@ -19,6 +18,11 @@ class ValorAlimentacaoForm(FpcCrud):
                   'pagaBeneficio')
         layout_pesquisa = ('campus','inicioVigencia','fimVigencia','pagaBeneficio', 'valorBeneficio')
         titulo = "Valor Alimentação"
+
+
+class CampusForm(FpcCrud):
+    class Meta:
+        model = Campus
 
 
 class OcorrenciasForm(FpcCrud):
