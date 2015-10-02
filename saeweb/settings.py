@@ -105,7 +105,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-ELIOT_DIR = "/home/agilar/desenvolvimento/workspaces/workspace_saeweb/eliot"
+ELIOT_DIR = "/home/everton/desenvolvimento/eclipse mars/workspace/eliot"
 
 STATIC_URL = '/static/'
 STATIC_FPC = '/static/'

@@ -17,9 +17,8 @@ var valorAlimentacaoController = {
 	on_format_cell_datable : function(field, type, value, row, col, html_row){
 		switch (field) {
 			case "pagaBeneficio":  return value === "true" ? "Sim" : "Não";
-			case "valorBeneficio": return value.toFixed(2);
+			default: return value;
 		}
-		return value;
 	}
 	
 };
