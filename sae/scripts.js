@@ -1,5 +1,20 @@
+/*
+ * 
+ * Classe controladora para o cadastro de valor alimentação
+ * 
+ */ 
 var valorAlimentacaoController = {
+	/*
+	 * Cache para listas de combobox. Assim não é necessário buscar todas as vezes que a tela sofre refresh 
+	 * 
+	 */ 
+	lista_campus : null,
 
+	
+	/*
+	 * Invocado "após" exibir o formulário. Útil para programar algo necessário após a tela já estar visível 
+	 * 
+	 */ 
 	on_open_form : function(response){
 		var doc = document;
 		var param = response.params[0]; 
@@ -14,13 +29,34 @@ var valorAlimentacaoController = {
 		obj.pagaBeneficio = obj.pagaBeneficio ? "Sim" : "Não";  
 	},
 
+
+	/*
+	 * Invocado para renderizar as celulas da grade de dados. Útil para formatar dados  
+	 * 
+	 */ 
 	on_format_cell_datable : function(field, type, value, row, col, html_row){
 		switch (field) {
 			case "pagaBeneficio":  return value === "true" ? "Sim" : "Não";
 			default: return value;
 		}
-	}
+	},
+
 	
+	/*
+	 * Invocado para renderizar o conteúdo de campos marcado como lazy. Útil para trazer os dados sem segundo plano de combobox, grids  
+	 * 
+	 */ 
+	on_render_lazy_field : function(field){
+		if (field.dataset.field === "campus"){
+			fpc.callRestIfNull(this.lista_campus, '/sitab/campus', {fields: "codigo,denominacao"} )
+				.done(function(result) {
+					valorAlimentacaoController.lista_campus = result;
+					fpc.fillComboboxFromArray(field, valorAlimentacaoController.lista_campus);
+				});
+			
+		}
+	}
+
 };
 
 
@@ -145,7 +181,6 @@ var estudoSocioEconomicoForm = {
     		default: throw new Error("Erro ao obter o formulário atual do questionário socioeconômico");
     	}
     }
-    
     
 };    
 

@@ -3,16 +3,11 @@
 
 from django.db import models
 from fpc.models import FpcModel, FpcIntegerField, FpcDecimalField, EmsModel, \
-    FpcTextField
+    FpcTextField, FpcForeignKey
 
 
-BOOLEAN = (("false", "Não"), ("true", 'Sim'))
-
-TIPO_GERA_ARQUIVO_RU = ((0, "Restaurante Universitário"), (1,
-                        "Todos os Estudos Concluídos"), (2,
-                        'Todos os Estudos de Baixa Renda'), (3,
-                        "Participantes do Auxílio Alimentação"))
-
+BOOLEAN = ((0, "Não"), (1, 'Sim'))
+CAMPUS = ()
 
 # CRUDS
 
@@ -24,10 +19,10 @@ class Campus(FpcModel):
 class ValorAlimentacao(EmsModel):
     service_url = "/sae/valoralimentacao"
     id = FpcIntegerField('Código', primary_key=True, auto_increment=True, editable=False, insertable=False, size=120)
-    campus = models.ForeignKey('Campus', verbose_name="Campus", null=False, blank=False)
+    campus = FpcIntegerField('Campus', null=False, blank=False, choices=CAMPUS, render="combobox", lazy=True)
     inicioVigencia = models.DateField("Início Vigência", null=False, blank=False)
     fimVigencia = models.DateField('Fim Vigência?', null=True, blank=True)
-    pagaBeneficio = FpcIntegerField('Paga Benefício?', null=False, blank=False, radio=BOOLEAN, default="false")
+    pagaBeneficio = FpcIntegerField('Paga Benefício?', null=False, blank=False, choices=BOOLEAN, render="radio", default="0")
     valorBeneficio = FpcDecimalField('Valor do Benefício', null=False, blank=False, default=0, max_digits=10, decimal_places=2)
 
 class Ocorrencias(EmsModel):
